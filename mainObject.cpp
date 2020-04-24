@@ -4,8 +4,8 @@
 MainObject::MainObject()
 {
     frame_ = 0;
-    x_pos_ = 150;
-    y_pos_ = 350;
+    /*x_pos_ = 150;
+    y_pos_ = 350;*/
     x_val_ = 0;
     y_val_ = 0;
     width_frame_ = 0;
@@ -70,8 +70,8 @@ void MainObject::Show(SDL_Renderer*des)
         frame_ = 0;
     }
 
-    rect_.x = x_pos_;
-    rect_.y = y_pos_;
+    rect_.x = 150;
+    rect_.y = 350;
 
     SDL_Rect* current_clip = &frame_clip_[frame_];
 
@@ -90,7 +90,7 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen)
             {
                 status_ = UPDOWN_UP;
                 input_type_.up_ = 1;
-                y_pos_ -= 80;
+                y_val_ -= 10;
 
             }
             break;
@@ -107,7 +107,7 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen)
             {
                 status_ = UPDOWN_UP;
                 input_type_.up_ = 0;
-
+                y_val_ -= 10;
             }
             break;
         default:
@@ -119,9 +119,13 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen)
     {
         status_ = UPDOWN_DOWN;
         input_type_.up_ = 0;
-        y_pos_ += 30;
+        y_val_ += 1;
 
     }
+}
+void MainObject::HandleMove()
+{
+    rect_.y += y_val_;
 }
 
 

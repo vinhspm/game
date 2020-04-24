@@ -23,15 +23,14 @@ public:
     void Show(SDL_Renderer* des);
     void HandleInputAction(SDL_Event events, SDL_Renderer*screen);
     void set_clips();
-    void DoPlayer();
+    void HandleMove();
 
 
 private:
     int x_val_;
-    float y_val_;
+    int y_val_;
 
-    float x_pos_;
-    float y_pos_;
+
 
     int width_frame_;
     int height_frame_;

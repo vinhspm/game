@@ -138,6 +138,7 @@ int main(int argc, char* argv[])
 
         g_background.Render(g_screen,NULL);
         p_player.Show(g_screen);
+        p_player.HandleMove();
 
 
         //draw threats
