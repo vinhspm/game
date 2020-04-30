@@ -7,40 +7,34 @@
 
 
 #define WIDTH_MAIN_OBJECT 200
-#define HEIGHT_MAIN_OBJECT 200
+#define HEIGHT_MAIN_OBJECT 70
 class MainObject : public BaseObject
 {
 public:
     MainObject();
     ~MainObject();
 
-    enum UpDownType
-    {
-        UPDOWN_UP = 1,
-        UPDOWN_DOWN = 0,
-    };
+    MainObject(SDL_Renderer* renderer);
     bool LoadImg(std::string path, SDL_Renderer* screen);
     void Show(SDL_Renderer* des);
+    int getmPosX();
+    int getmPosY();
+    void changeY(float accel);
     void HandleInputAction(SDL_Event events, SDL_Renderer*screen);
-    void set_clips();
-    void HandleMove();
-
+    void move(int &loseFlag);
 
 private:
     int x_val_;
-    int y_val_;
+    float y_val_;
+
+    float x_pos_;
+    float y_pos_;
 
 
+    SDL_Texture *Bird;
 
-    int width_frame_;
-    int height_frame_;
-
-    SDL_Rect frame_clip_[2];
-    Input input_type_;
-
-    int frame_;
-    int status_;
-
+    int mPosX=60, mPosY=0;
+    float mVelY=0;
 
 };
 

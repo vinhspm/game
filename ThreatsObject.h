@@ -7,7 +7,7 @@
 
 #define WIDTH_THREAT 50
 #define HEIGHT_THREAT 200
-#define GAP_THREAT 150
+#define GAP_THREAT 250
 
 
 

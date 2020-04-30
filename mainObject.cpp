@@ -1,131 +1,102 @@
-
+#include "commonFunc.h"
 #include "mainObject.h"
+#include "loadBird.h"
+
+
 
 MainObject::MainObject()
 {
-    frame_ = 0;
-    /*x_pos_ = 150;
-    y_pos_ = 350;*/
-    x_val_ = 0;
-    y_val_ = 0;
-    width_frame_ = 0;
-    height_frame_ = 0;
-    status_ = -1;
+    x_pos_ = 150;
+    y_pos_ = 350;
+
     rect_.x = 0;
     rect_.y = 0;
     rect_.w = WIDTH_MAIN_OBJECT;
     rect_.h = HEIGHT_MAIN_OBJECT;
-    input_type_.up_ = 0;
 
 
 }
+
 
 MainObject::~MainObject()
 {
     ;
 }
 
+int MainObject::getmPosX()
+{
+	return mPosX;
+}
+int MainObject::getmPosY()
+{
+	return mPosY;
+}
+
+//con chim rơi tự do
+void MainObject::changeY(float accel)
+{
+	mVelY += accel;
+}
+
+
 bool MainObject::LoadImg(std::string path, SDL_Renderer* screen)
 {
     bool ret = BaseObject::LoadImg(path,screen);
 
     if (ret == true)
-    {
-        width_frame_ = rect_.w/2;
-        height_frame_ = rect_.h;
-    }
 
     return ret;
 }
-void MainObject::set_clips()
-{
-    if(width_frame_ > 0 && height_frame_ > 0)
-    {
-        frame_clip_[0].x = 0;
-        frame_clip_[0].y = 0;
-        frame_clip_[0].w = width_frame_;
-        frame_clip_[0].h = height_frame_;
 
-        frame_clip_[1].x = width_frame_;
-        frame_clip_[1].y = 0;
-        frame_clip_[1].w = width_frame_;
-        frame_clip_[1].h = height_frame_;
+//quản lý sự kiện nhập vào từ bàn phím
+void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen)
+{
+
+    if(events.type == SDL_KEYDOWN && events.key.repeat == 0)
+    {
+        switch(events.key.keysym.sym)
+        {
+        case SDLK_SPACE: mVelY = -1.7;
+        break;
+
+        default:
+            break;
+        }
+    }
+}
+
+
+//quản lý chuyển động của con chim
+void MainObject::move(int &loseFlag)
+{
+    mPosY += mVelY;
+
+    if (mPosY < 0)
+	{
+		mPosY = 0;
+	}
+
+    if( mPosY +HEIGHT_MAIN_OBJECT > SCREEN_HEIGHT )
+    {
+        mPosY = SCREEN_HEIGHT - HEIGHT_MAIN_OBJECT ;
+		loseFlag = 1;
     }
 }
 void MainObject::Show(SDL_Renderer*des)
 {
-
     LoadImg("img//bird2.png", des);
-    if(input_type_.up_ == 1 )
-    {
-        frame_++;
-    }
-    else
-    {
-        frame_ = 0;
-    }
 
-    if(frame_ >= 2)
-    {
-        frame_ = 0;
-    }
+    rect_.x = mPosX;
+    rect_.y = mPosY;
+    rect_.w = 64;
+    rect_.h = 64;
+    SDL_Rect renderquad = {rect_.x, rect_.y, rect_.w, rect_.h};
 
-    rect_.x = 150;
-    rect_.y = 350;
 
-    SDL_Rect* current_clip = &frame_clip_[frame_];
 
-    SDL_Rect renderQuad = {rect_.x, rect_.y, width_frame_, height_frame_};
+    //render bird với góc thay đổi
+    SDL_RenderCopyEx(des,p_object_, NULL, &renderquad, mVelY* 15 -10, nullptr, SDL_FLIP_NONE);
 
-    SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
 
 }
-void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen)
-{
-    if(events.type == SDL_KEYDOWN)
-    {
-        switch(events.key.keysym.sym)
-        {
-        case SDLK_SPACE:
-            {
-                status_ = UPDOWN_UP;
-                input_type_.up_ = 1;
-                y_val_ -= 10;
-
-            }
-            break;
-        default:
-            break;
-
-        }
-    }
-    else if(events.type == SDL_KEYUP)
-    {
-        switch(events.key.keysym.sym)
-        {
-        case SDLK_SPACE:
-            {
-                status_ = UPDOWN_UP;
-                input_type_.up_ = 0;
-                y_val_ -= 10;
-            }
-            break;
-        default:
-            break;
-
-        }
-    }
-    else
-    {
-        status_ = UPDOWN_DOWN;
-        input_type_.up_ = 0;
-        y_val_ += 1;
-
-    }
-}
-void MainObject::HandleMove()
-{
-    rect_.y += y_val_;
-}
-
 

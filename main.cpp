@@ -1,7 +1,7 @@
 #include"commonFunc.h"
 #include "BaseObject.h"
 #include "mainObject.h"
-#include "game_map.h"
+
 #include "ThreatsObject.h"
 #include<ctime>
 BaseObject g_background;
@@ -47,6 +47,8 @@ bool LoadBackGround()
         return false;
     else return true;
 }
+
+
 void ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y)
 {
   SDL_Rect offset;
@@ -54,6 +56,15 @@ void ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y)
   offset.y = y;
   SDL_BlitSurface(src, NULL, des, &offset);
 }
+
+
+
+//CHECK VA CHẠM
+
+
+
+
+
 
 
 void close()
@@ -79,9 +90,10 @@ int main(int argc, char* argv[])
 
     MainObject p_player;
     p_player.LoadImg("img//bird2.png",g_screen);
-    p_player.set_clips();
+
 
     //make threats
+
     ThreatObject* p_threat1 =  new ThreatObject();
     bool ret1 = p_threat1 ->LoadImg("img/threat.png",g_screen);
     if(ret1 == false) return 10;
@@ -91,7 +103,7 @@ int main(int argc, char* argv[])
     ThreatObject* p_threat2 =  new ThreatObject();
     bool ret2 = p_threat2 ->LoadImg("img/threat2.png",g_screen);
     if(ret2 == false) return 10;
-    p_threat2 ->SetRect(2 * SCREEN_WIDTH / 3 - WIDTH_THREAT /3,450);
+    p_threat2 ->SetRect(2 * SCREEN_WIDTH / 3 - WIDTH_THREAT /3,-300+600+GAP_THREAT);
     p_threat2->set_x_val(0.6);
 
     ThreatObject* p_threat3 =  new ThreatObject();
@@ -103,7 +115,7 @@ int main(int argc, char* argv[])
     ThreatObject* p_threat4 =  new ThreatObject();
     bool ret4 = p_threat4 ->LoadImg("img/threat2.png",g_screen);
     if(ret4 == false) return 10;
-    p_threat4 ->SetRect(SCREEN_WIDTH,550);
+    p_threat4 ->SetRect(SCREEN_WIDTH,-200+600+GAP_THREAT);
     p_threat4->set_x_val(0.6);
 
     ThreatObject* p_threat5 =  new ThreatObject();
@@ -115,9 +127,14 @@ int main(int argc, char* argv[])
     ThreatObject* p_threat6 =  new ThreatObject();
     bool ret6 = p_threat6 ->LoadImg("img/threat2.png",g_screen);
     if(ret6 == false) return 10;
-    p_threat6 ->SetRect(4 * SCREEN_WIDTH / 3 + WIDTH_THREAT / 3,350);
+    p_threat6 ->SetRect(4 * SCREEN_WIDTH / 3 + WIDTH_THREAT / 3,-400+600+GAP_THREAT);
     p_threat6->set_x_val(0.6);
 
+    int sos = 0;
+    int speed = 2;
+
+    float accel=0.02;
+    int lose = 0;
 
     while(!is_quit)
     {
@@ -130,15 +147,22 @@ int main(int argc, char* argv[])
 
             p_player.HandleInputAction(g_event, g_screen);
         }
+        p_player.changeY(accel);
+        p_player.move(lose);
 
-
+        if (lose == 1)
+        {
+            sos = 0;
+            speed = 0;
+            SDL_Delay(2000);
+            return 0;
+        }
 
         SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR );
         SDL_RenderClear(g_screen);
 
         g_background.Render(g_screen,NULL);
         p_player.Show(g_screen);
-        p_player.HandleMove();
 
 
         //draw threats
