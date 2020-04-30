@@ -20,6 +20,6 @@ const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;
 const int COLOR_KEY_B = 255;
 const int RENDER_DRAW_COLOR = 255 ;
-
+int  Check_va_cham(const SDL_Rect& objectA, const SDL_Rect& objectB);
 
 #endif // COMMON_FUNCTION_H_
