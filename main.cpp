@@ -152,8 +152,7 @@ int main(int argc, char* argv[])
 
         if (lose == 1)
         {
-            sos = 0;
-            speed = 0;
+
             SDL_Delay(2000);
             return 0;
         }
@@ -181,16 +180,17 @@ int main(int argc, char* argv[])
 
         SDL_RenderPresent(g_screen);
         int result[6];
-        result[0] = Check_va_cham(p_player->GetRect(), p_threat1->GetRect());
-        result[1] = Check_va_cham(p_player->GetRect(), p_threat2->GetRect());
-        result[2] = Check_va_cham(p_player->GetRect(), p_threat3->GetRect());
-        result[3] = Check_va_cham(p_player->GetRect(), p_threat4->GetRect());
-        result[4] = Check_va_cham(p_player->GetRect(), p_threat5->GetRect());
-        result[5] = Check_va_cham(p_player->GetRect(), p_threat6->GetRect());
+        result[0] = Check_va_cham(p_player.GetRect(), p_threat1->GetRect());
+        result[1] = Check_va_cham(p_player.GetRect(), p_threat2->GetRect());
+        result[2] = Check_va_cham(p_player.GetRect(), p_threat3->GetRect());
+        result[3] = Check_va_cham(p_player.GetRect(), p_threat4->GetRect());
+        result[4] = Check_va_cham(p_player.GetRect(), p_threat5->GetRect());
+        result[5] = Check_va_cham(p_player.GetRect(), p_threat6->GetRect());
         for(int x = 0; x < 6;x++)
         {
             if(result[x] == 1)
             {
+                SDL_Delay(2000);
                 is_quit = true;
             }
         }
