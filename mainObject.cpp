@@ -49,14 +49,18 @@ bool MainObject::LoadImg(std::string path, SDL_Renderer* screen)
 }
 
 //quản lý sự kiện nhập vào từ bàn phím
-void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen)
+void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen, Mix_Chunk* wing_sound)
 {
 
     if(events.type == SDL_KEYDOWN && events.key.repeat == 0)
     {
         switch(events.key.keysym.sym)
         {
-        case SDLK_SPACE: mVelY = -1.7;
+        case SDLK_SPACE:
+            {
+                mVelY = -1.7;
+                Mix_PlayChannel(-1, wing_sound, 0);
+            }
         break;
 
         default:
@@ -95,7 +99,7 @@ void MainObject::Show(SDL_Renderer*des)
 
 
     //render bird với góc thay đổi
-    SDL_RenderCopyEx(des,p_object_, NULL, &renderquad, mVelY* 15 -10, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(des,p_object_, NULL, &renderquad, mVelY* 15, nullptr, SDL_FLIP_NONE);
 
 
 }

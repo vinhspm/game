@@ -11,10 +11,23 @@
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
+
+
+//sound
+static Mix_Chunk* g_sound_wing;
+static Mix_Chunk* g_sound_point;
+static Mix_Chunk* g_sound_hit;
+static Mix_Chunk* g_sound_die;
+
+
+
+
 //screen
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 800;
 const int SCREEN_BPP = 32;
+
+
 
 const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;

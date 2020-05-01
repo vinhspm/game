@@ -20,7 +20,7 @@ public:
     int getmPosX();
     int getmPosY();
     void changeY(float accel);
-    void HandleInputAction(SDL_Event events, SDL_Renderer*screen);
+    void HandleInputAction(SDL_Event events, SDL_Renderer*screen, Mix_Chunk* wing_sound);
     void move(int &loseFlag);
 
 private:

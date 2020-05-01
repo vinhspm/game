@@ -46,7 +46,7 @@ int  Check_va_cham(const SDL_FRect& objectA, const SDL_FRect& objectB)
   }
 
   // Case 2: size object 1 < size object 2
-  if (left_b >= left_a && left_b <= right_a)
+  if (left_a <= left_b && left_b <= right_a)
   {
     if (top_b >= top_a && top_b <= bottom_a)
     {

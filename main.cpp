@@ -37,7 +37,24 @@ bool InitData()
                 success = false;
         }
     }
+
+    if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096)==-1)
+        return false;
+
+    //doc file am thanh wav
+    g_sound_wing = Mix_LoadWAV("sound//sfx_wing.wav");
+    g_sound_hit = Mix_LoadWAV("sound//sfx_hit.wav");
+    g_sound_point = Mix_LoadWAV("sound//sfx_point.wav");
+    g_sound_die = Mix_LoadWAV("sound//sfx_die.wav");
+
+    if(g_sound_wing == NULL || g_sound_hit == NULL || g_sound_point == NULL || g_sound_die == NULL)
+    {
+        return false;
+    }
+
     return success;
+
+
 }
 
 bool LoadBackGround()
@@ -56,16 +73,6 @@ void ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y)
   offset.y = y;
   SDL_BlitSurface(src, NULL, des, &offset);
 }
-
-
-
-//CHECK VA CHẠM
-
-
-
-
-
-
 
 void close()
 {
@@ -94,41 +101,43 @@ int main(int argc, char* argv[])
 
     //make threats
 
+    const double speed = 0.4; // toc do di chuyen cua threat
+
     ThreatObject* p_threat1 =  new ThreatObject();
     bool ret1 = p_threat1 ->LoadImg("img/threat.png",g_screen);
     if(ret1 == false) return 10;
     p_threat1 ->SetRect(2 * SCREEN_WIDTH / 3 - WIDTH_THREAT /3,-300);
-    p_threat1->set_x_val(0.6);
+    p_threat1->set_x_val(speed);
 
     ThreatObject* p_threat2 =  new ThreatObject();
     bool ret2 = p_threat2 ->LoadImg("img/threat2.png",g_screen);
     if(ret2 == false) return 10;
     p_threat2 ->SetRect(2 * SCREEN_WIDTH / 3 - WIDTH_THREAT /3,-300+600+GAP_THREAT);
-    p_threat2->set_x_val(0.6);
+    p_threat2->set_x_val(speed);
 
     ThreatObject* p_threat3 =  new ThreatObject();
     bool ret3 = p_threat3 ->LoadImg("img/threat.png",g_screen);
     if(ret3 == false) return 10;
     p_threat3 ->SetRect(SCREEN_WIDTH,-200);
-    p_threat3 ->set_x_val(0.6);
+    p_threat3 ->set_x_val(speed);
 
     ThreatObject* p_threat4 =  new ThreatObject();
     bool ret4 = p_threat4 ->LoadImg("img/threat2.png",g_screen);
     if(ret4 == false) return 10;
     p_threat4 ->SetRect(SCREEN_WIDTH,-200+600+GAP_THREAT);
-    p_threat4->set_x_val(0.6);
+    p_threat4->set_x_val(speed);
 
     ThreatObject* p_threat5 =  new ThreatObject();
     bool ret5 = p_threat5 ->LoadImg("img/threat.png",g_screen);
     if(ret5 == false) return 10;
     p_threat5 ->SetRect(4 * SCREEN_WIDTH / 3 + WIDTH_THREAT / 3,-400);
-    p_threat5 ->set_x_val(0.6);
+    p_threat5 ->set_x_val(speed);
 
     ThreatObject* p_threat6 =  new ThreatObject();
     bool ret6 = p_threat6 ->LoadImg("img/threat2.png",g_screen);
     if(ret6 == false) return 10;
     p_threat6 ->SetRect(4 * SCREEN_WIDTH / 3 + WIDTH_THREAT / 3,-400+600+GAP_THREAT);
-    p_threat6->set_x_val(0.6);
+    p_threat6->set_x_val(speed);
 
 
     float accel=0.02;
@@ -143,16 +152,16 @@ int main(int argc, char* argv[])
                 is_quit = true;
             }
 
-            p_player.HandleInputAction(g_event, g_screen);
+            p_player.HandleInputAction(g_event, g_screen, g_sound_wing);
         }
         p_player.changeY(accel);
         p_player.move(lose);
 
         if (lose == 1)
         {
-
+            Mix_PlayChannel(-1, g_sound_hit, 0);
             SDL_Delay(2000);
-            return 0;
+            is_quit = true;
         }
 
         SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR );
@@ -187,6 +196,10 @@ int main(int argc, char* argv[])
         {
             if(result[x] == 1)
             {
+
+                Mix_PlayChannel(-1, g_sound_hit, 0);
+                SDL_Delay(700);
+                Mix_PlayChannel(-1, g_sound_die, 0);
                 SDL_Delay(2000);
                 is_quit = true;
             }
