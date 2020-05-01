@@ -58,7 +58,7 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer *screen, Mix_C
         {
         case SDLK_SPACE:
             {
-                mVelY = -1.7;
+                mVelY = -1.5;
                 Mix_PlayChannel(-1, wing_sound, 0);
             }
         break;
