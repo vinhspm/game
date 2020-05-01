@@ -130,8 +130,6 @@ int main(int argc, char* argv[])
     p_threat6 ->SetRect(4 * SCREEN_WIDTH / 3 + WIDTH_THREAT / 3,-400+600+GAP_THREAT);
     p_threat6->set_x_val(0.6);
 
-    int sos = 0;
-    int speed = 2;
 
     float accel=0.02;
     int lose = 0;
@@ -178,7 +176,6 @@ int main(int argc, char* argv[])
         p_threat6->Show_1(g_screen);
         p_threat6->HandleMove2(SCREEN_WIDTH,SCREEN_HEIGHT);
 
-        SDL_RenderPresent(g_screen);
         int result[6];
         result[0] = Check_va_cham(p_player.GetRect(), p_threat1->GetRect());
         result[1] = Check_va_cham(p_player.GetRect(), p_threat2->GetRect());
@@ -194,6 +191,8 @@ int main(int argc, char* argv[])
                 is_quit = true;
             }
         }
+        SDL_RenderPresent(g_screen);
+
     }
 
     close();
