@@ -2,10 +2,10 @@
 
 int  Check_va_cham(const SDL_FRect& objectA, const SDL_FRect& objectB)
 {
-    int left_a = objectA.x;
-  int right_a = objectA.x + objectA.w;
-  int top_a = objectA.y;
-  int bottom_a = objectA.y + objectA.h;
+    int left_a = objectA.x+10;
+  int right_a = objectA.x + objectA.w-10;
+  int top_a = objectA.y+10;
+  int bottom_a = objectA.y + objectA.h-8;
 
   int left_b = objectB.x;
   int right_b = objectB.x + objectB.w;

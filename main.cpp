@@ -140,7 +140,7 @@ int main(int argc, char* argv[])
     p_threat6->set_x_val(speed);
 
 
-    float accel=0.02;
+    float accel=0.017;
     int lose = 0;
 
     while(!is_quit)
