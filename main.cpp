@@ -6,6 +6,7 @@
 #include<ctime>
 BaseObject g_background;
 SDL_Surface* g_object = NULL;
+BaseObject g_menu;
 
 
 
@@ -65,6 +66,13 @@ bool LoadBackGround()
     else return true;
 }
 
+bool LoadMenu(){
+    bool ret2 = g_menu.LoadImg("img//menugame.png",g_screen);
+    if(ret2 == false)
+        return false;
+    else return true;
+}
+
 
 void ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y)
 {
@@ -92,8 +100,11 @@ int main(int argc, char* argv[])
         return -1;
     if(LoadBackGround() == false)
         return -1;
+    if(LoadMenu() == false)
+        return -1;
 
     bool is_quit = false;
+    bool is_join = false;
 
     MainObject p_player;
     p_player.LoadImg("img//bird2.png",g_screen);
@@ -143,8 +154,25 @@ int main(int argc, char* argv[])
     float accel=0.017;
     int lose = 0;
 
-    while(!is_quit)
+    while(is_join == false)
     {
+        g_menu.Render(g_screen, NULL);
+        SDL_RenderPresent(g_screen);
+        SDL_Event e;
+        if(SDL_WaitEvent(&e) != 0)
+        if(e.type == SDL_KEYDOWN)
+        {
+            is_join = true;
+            break;
+        }
+
+    }
+
+    while(!is_quit && is_join == true)
+    {
+
+
+
         while(SDL_PollEvent(&g_event) != 0)
         {
             if(g_event.type == SDL_QUIT)
