@@ -18,7 +18,7 @@ static Mix_Chunk* g_sound_wing;
 static Mix_Chunk* g_sound_point;
 static Mix_Chunk* g_sound_hit;
 static Mix_Chunk* g_sound_die;
-
+static Mix_Chunk* g_sound_over;
 
 
 

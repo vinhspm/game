@@ -7,6 +7,7 @@
 BaseObject g_background;
 SDL_Surface* g_object = NULL;
 BaseObject g_menu;
+BaseObject g_over;
 
 
 
@@ -47,8 +48,9 @@ bool InitData()
     g_sound_hit = Mix_LoadWAV("sound//sfx_hit.wav");
     g_sound_point = Mix_LoadWAV("sound//sfx_point.wav");
     g_sound_die = Mix_LoadWAV("sound//sfx_die.wav");
+    g_sound_over = Mix_LoadWAV("sound//nope.wav");
 
-    if(g_sound_wing == NULL || g_sound_hit == NULL || g_sound_point == NULL || g_sound_die == NULL)
+    if(g_sound_wing == NULL || g_sound_hit == NULL || g_sound_point == NULL || g_sound_die == NULL || g_sound_over==NULL)
     {
         return false;
     }
@@ -69,6 +71,13 @@ bool LoadBackGround()
 bool LoadMenu(){
     bool ret2 = g_menu.LoadImg("img//menugame.png",g_screen);
     if(ret2 == false)
+        return false;
+    else return true;
+}
+
+bool LoadOver(){
+    bool ret3 = g_over.LoadImg("img//gameover.png", g_screen);
+    if(ret3 == false)
         return false;
     else return true;
 }
@@ -101,6 +110,8 @@ int main(int argc, char* argv[])
     if(LoadBackGround() == false)
         return -1;
     if(LoadMenu() == false)
+        return -1;
+    if(LoadOver() == false)
         return -1;
 
     bool is_quit = false;
@@ -152,8 +163,29 @@ int main(int argc, char* argv[])
 
 
     float accel=0.017;
-    int lose = 0;
+    int lose=0;
+while(1){
+    while(is_quit == true)
+    {
+        g_over.Render(g_screen, NULL);
+        SDL_RenderPresent(g_screen);
+        SDL_Event events;
+        if(SDL_WaitEvent(&events) != 0)
+        {
+            if(events.type == SDL_KEYDOWN)
+            {
+                if(events.key.keysym.sym == SDLK_1)
+                    {
+                        Mix_PlayChannel(-1, g_sound_over, 0);
+                    }
+                else if(events.key.keysym.sym == SDLK_0)
+                    close();
 
+            }
+        }
+
+
+    }
     while(is_join == false)
     {
         g_menu.Render(g_screen, NULL);
@@ -228,13 +260,14 @@ int main(int argc, char* argv[])
                 Mix_PlayChannel(-1, g_sound_hit, 0);
                 SDL_Delay(700);
                 Mix_PlayChannel(-1, g_sound_die, 0);
-                SDL_Delay(2000);
+                SDL_Delay(1000);
                 is_quit = true;
             }
         }
         SDL_RenderPresent(g_screen);
 
     }
+}
 
     close();
     return 0;
