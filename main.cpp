@@ -105,6 +105,8 @@ void close()
 }
 int main(int argc, char* argv[])
 {
+
+    tryAgain:
     if(InitData() == false)
         return -1;
     if(LoadBackGround() == false)
@@ -164,8 +166,10 @@ int main(int argc, char* argv[])
 
     float accel=0.017;
     int lose=0;
+
+
 while(1){
-    while(is_quit == true)
+    if(is_quit == true)
     {
         g_over.Render(g_screen, NULL);
         SDL_RenderPresent(g_screen);
@@ -174,12 +178,16 @@ while(1){
         {
             if(events.type == SDL_KEYDOWN)
             {
-                if(events.key.keysym.sym == SDLK_1)
+                if(events.key.keysym.sym == SDLK_SPACE)
                     {
-                        Mix_PlayChannel(-1, g_sound_over, 0);
+                        goto tryAgain;
                     }
-                else if(events.key.keysym.sym == SDLK_0)
+                else if(events.key.keysym.sym == SDLK_ESCAPE)
+                {
                     close();
+                    return 0;
+                }
+
 
             }
         }

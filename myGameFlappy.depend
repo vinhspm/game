@@ -1661,7 +1661,7 @@
 1588691584 source:c:\users\vinh\documents\github\gamecpp\game\commonfunc.cpp
 	"commonFunc.h"
 
-1589480623 source:c:\users\vinh\documents\github\gamecpp\game\main.cpp
+1590683797 source:c:\users\vinh\documents\github\gamecpp\game\main.cpp
 	"commonFunc.h"
 	"BaseObject.h"
 	"mainObject.h"
@@ -1676,7 +1676,7 @@
 	"commonFunc.h"
 	"BaseObject.h"
 
-1589479565 source:c:\users\vinh\documents\github\gamecpp\game\mainobject.cpp
+1589735560 source:c:\users\vinh\documents\github\gamecpp\game\mainobject.cpp
 	"commonFunc.h"
 	"mainObject.h"
 	"loadBird.h"
