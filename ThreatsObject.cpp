@@ -52,10 +52,7 @@ void ThreatObject::Show_1(SDL_Renderer*des)
     SDL_RenderCopy(des,p_object_,NULL, &renderquad);
 }
 
-void ThreatObject::HandleInputAction(SDL_Event events)
-{
- ;
-}
+
 
 
 

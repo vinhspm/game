@@ -34,5 +34,6 @@ const int COLOR_KEY_G = 255;
 const int COLOR_KEY_B = 255;
 const int RENDER_DRAW_COLOR = 255 ;
 int  Check_va_cham(const SDL_FRect& objectA, const SDL_FRect& objectB);
+int Check_point(const SDL_FRect& objectC, const SDL_FRect& objectD);
 
 #endif // COMMON_FUNCTION_H_

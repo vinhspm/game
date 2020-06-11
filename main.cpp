@@ -106,7 +106,6 @@ void close()
 int main(int argc, char* argv[])
 {
 
-    tryAgain:
     if(InitData() == false)
         return -1;
     if(LoadBackGround() == false)
@@ -116,6 +115,7 @@ int main(int argc, char* argv[])
     if(LoadOver() == false)
         return -1;
 
+    tryAgain:
     bool is_quit = false;
     bool is_join = false;
 
@@ -253,16 +253,28 @@ while(1){
         p_threat6->Show_1(g_screen);
         p_threat6->HandleMove2(SCREEN_WIDTH,SCREEN_HEIGHT);
 
-        int result[6];
-        result[0] = Check_va_cham(p_player.GetRect(), p_threat1->GetRect());
-        result[1] = Check_va_cham(p_player.GetRect(), p_threat2->GetRect());
-        result[2] = Check_va_cham(p_player.GetRect(), p_threat3->GetRect());
-        result[3] = Check_va_cham(p_player.GetRect(), p_threat4->GetRect());
-        result[4] = Check_va_cham(p_player.GetRect(), p_threat5->GetRect());
-        result[5] = Check_va_cham(p_player.GetRect(), p_threat6->GetRect());
+        int checkPoint[3];
+        checkPoint[0] = Check_point(p_player.GetRect(), p_threat1->GetRect());
+        checkPoint[1] = Check_point(p_player.GetRect(), p_threat3->GetRect());
+        checkPoint[2] = Check_point(p_player.GetRect(), p_threat5->GetRect());
+        for(int y = 0; y < 3; y++)
+        {
+            if(checkPoint[y] == 1)
+            {
+                Mix_PlayChannel(-1, g_sound_point, 0);
+            }
+        }
+
+        int checkHit[6];
+        checkHit[0] = Check_va_cham(p_player.GetRect(), p_threat1->GetRect());
+        checkHit[1] = Check_va_cham(p_player.GetRect(), p_threat2->GetRect());
+        checkHit[2] = Check_va_cham(p_player.GetRect(), p_threat3->GetRect());
+        checkHit[3] = Check_va_cham(p_player.GetRect(), p_threat4->GetRect());
+        checkHit[4] = Check_va_cham(p_player.GetRect(), p_threat5->GetRect());
+        checkHit[5] = Check_va_cham(p_player.GetRect(), p_threat6->GetRect());
         for(int x = 0; x < 6;x++)
         {
-            if(result[x] == 1)
+            if(checkHit[x] == 1)
             {
 
                 Mix_PlayChannel(-1, g_sound_hit, 0);
@@ -272,6 +284,9 @@ while(1){
                 is_quit = true;
             }
         }
+
+
+
         SDL_RenderPresent(g_screen);
 
     }

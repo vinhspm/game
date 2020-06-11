@@ -19,7 +19,6 @@ public:
 
     void HandleMove1(const int&x_bordr, const int& y_bordr);
     void HandleMove2(const int&x_bordr, const int& y_bordr);
-    void HandleInputAction(SDL_Event events);
     void Show_1(SDL_Renderer*des);
     void set_x_val(const double&val){x_val_ = val;}
     void set_y_val(const int&val){y_val_ = val;}

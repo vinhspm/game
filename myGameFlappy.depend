@@ -1276,7 +1276,7 @@
 	<time.h>
 	"commonFunc.h"
 
-1589480585 c:\users\vinh\documents\github\gamecpp\game\commonfunc.h
+1591251144 c:\users\vinh\documents\github\gamecpp\game\commonfunc.h
 	<windows.h>
 	<string>
 	<SDL.h>
@@ -1658,10 +1658,10 @@
 	"begin_code.h"
 	"close_code.h"
 
-1588691584 source:c:\users\vinh\documents\github\gamecpp\game\commonfunc.cpp
+1591251429 source:c:\users\vinh\documents\github\gamecpp\game\commonfunc.cpp
 	"commonFunc.h"
 
-1590683797 source:c:\users\vinh\documents\github\gamecpp\game\main.cpp
+1591251815 source:c:\users\vinh\documents\github\gamecpp\game\main.cpp
 	"commonFunc.h"
 	"BaseObject.h"
 	"mainObject.h"
@@ -1672,7 +1672,7 @@
 	"CommonFunc.h"
 	"BaseObject.h"
 
-1588260494 c:\users\vinh\documents\github\gamecpp\game\threatsobject.h
+1591709867 c:\users\vinh\documents\github\gamecpp\game\threatsobject.h
 	"commonFunc.h"
 	"BaseObject.h"
 
@@ -1684,7 +1684,7 @@
 1588260494 c:\users\vinh\documents\github\gamecpp\game\loadbird.h
 	<SDL.h>
 
-1588260494 source:c:\users\vinh\documents\github\gamecpp\game\threatsobject.cpp
+1591709867 source:c:\users\vinh\documents\github\gamecpp\game\threatsobject.cpp
 	"ThreatsObject.h"
 	<ctime>
 
